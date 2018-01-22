@@ -1,1 +1,1 @@
-# Jigsaw Android for education
+# Jigsaw Android for EFSS education
