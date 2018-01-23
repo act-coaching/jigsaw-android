@@ -1,19 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="act.coaching.jigsawandroid.MainActivity">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/exitApp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Exit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+        <RelativeLayout
+            android:id="@+id/imgJigsaw"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="30dp"
+                android:text="Jigsaw"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/inputField"
+            android:layout_below="@+id/imgJigsaw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/inputFirst"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvEmpNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사 번"
+                />
+            <EditText
+                android:id="@+id/editEmpNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/inputSecond"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvTelNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 android:text="전 화 번 호"
+                />
+            <EditText
+                android:id="@+id/editTelNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btnLayout"
+            android:layout_below="@id/inputField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="로 그 인"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/tvGotoRegister"
+            android:layout_below="@+id/btnLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tvRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원가입하러가기"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    </LinearLayout>
