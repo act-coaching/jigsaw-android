@@ -14,6 +14,19 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    LoginService loginService;
+
+    void setLoginService(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
+    LoginService getLoginService() {
+        if(loginService == null) {
+            return BaseApplication.retrofit.create(LoginService.class);
+        }
+        return loginService;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,19 +38,18 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("MainActivity", "login call response : get called");
+                Log.d("MainActivity", "loginService call response : get called");
 
-                LoginService login = BaseApplication.retrofit.create(LoginService.class);
-                login.login(empNo.getText().toString(), editTelNo.getText().toString()).enqueue(new Callback<String>() {
+                getLoginService().login(empNo.getText().toString(), editTelNo.getText().toString()).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        Log.d("MainActivity", "login call response : " + response.body());
+                        Log.d("MainActivity", "loginService call response : " + response.body());
                         startActivity(new Intent(MainActivity.this, MyPageActivity.class));
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-                        Log.d("MainActivity", "login call response : " + t.getMessage());
+                        Log.d("MainActivity", "loginService call response : " + t.getMessage());
                         startActivity(new Intent(MainActivity.this, MyPageActivity.class));
                     }
                 });
