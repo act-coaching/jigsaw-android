@@ -11,6 +11,7 @@ import act.coaching.jigsawandroid.service.LoginService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +32,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initLayout();
+    }
+
+    private void initLayout() {
+        TextView tvRegister = (TextView) findViewById(R.id.tvRegister);
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         final EditText empNo = (EditText) findViewById(R.id.editEmpNo);
         final EditText editTelNo = (EditText) findViewById(R.id.editTelNo);
@@ -55,6 +69,5 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
     }
 }
