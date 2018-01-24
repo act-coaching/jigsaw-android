@@ -25,13 +25,13 @@
             android:layout_weight="0.33"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="프로젝트명" />
+            android:text="투입유형" />
         <TextView
             android:layout_width="0dp"
             android:layout_weight="0.33"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="프로젝트명" />
+            android:text="삭제" />
     </LinearLayout>
     <ListView
         android:id="@+id/listView"

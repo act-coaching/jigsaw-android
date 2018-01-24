@@ -4,8 +4,10 @@ import android.app.Application;
 
 import java.io.IOException;
 
+import act.coaching.jigsawandroid.util.JigsawPreference;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -29,10 +31,12 @@ public class BaseApplication extends Application{
                         .addInterceptor(new Interceptor() {
                             @Override
                             public Response intercept(Chain chain) throws IOException {
-                                return chain.proceed(
-                                        chain.request().newBuilder()
-                                                .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                                                .build());
+                                Request.Builder builder = chain.request().newBuilder();
+                                builder.addHeader("Content-Type", "application/x-www-form-urlencoded");
+//                                if(!JigsawPreference.getInstance(BaseApplication.this).getString(JigsawPreference.TOKEN).isEmpty()) {
+//                                    builder.addHeader("x-access-token", JigsawPreference.getInstance(BaseApplication.this).getString(JigsawPreference.TOKEN));
+//                                }
+                                return chain.proceed(builder.build());
                             }
                         }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build())
                 .addConverterFactory(GsonConverterFactory.create())
