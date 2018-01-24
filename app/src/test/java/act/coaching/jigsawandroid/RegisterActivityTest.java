@@ -88,22 +88,23 @@ public class RegisterActivityTest {
         Button btnJoin = (Button) registerActivity.findViewById(R.id.btnJoin);
 
         //Given
-        empNo.setText("");
-        name.setText("");
-        nickName.setText("");
-        telNo.setText("");
-        email.setText("");
+        empNo.setText("423232");
+        name.setText("name");
+        nickName.setText("nickname");
+        email.setText("mail");
         radioMale.setChecked(true);
-        teamName.setText("");
-        depName.setText("");
-        grade.setText("");
-        jobName.setText("");
+        telNo.setText("3450");
+        teamName.setText("teamname");
+        depName.setText("depname");
+        grade.setText("grade");
+        jobName.setText("jobname");
 
         //when
         btnJoin.performClick();
 
         //than
-        Mockito.verify(mockRegisterService).register("", "", "", "", "", "M", "", "", "", "");
+        Mockito.verify(mockRegisterService).register("423232", "name", "nickname", "mail", "M", "3450", "teamname",
+                "depname", "grade", "jobname");
 
     }
 
