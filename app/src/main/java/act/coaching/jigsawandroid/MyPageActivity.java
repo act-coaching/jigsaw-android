@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import act.coaching.jigsawandroid.service.LogoutService;
 import act.coaching.jigsawandroid.service.ProjectService;
 
 /**
@@ -12,6 +13,7 @@ import act.coaching.jigsawandroid.service.ProjectService;
 
 public class MyPageActivity extends AppCompatActivity {
     ProjectService projectService;
+    LogoutService logoutService;
 
     void setprojectService(ProjectService projectService) {
         this.projectService = projectService;
@@ -23,6 +25,19 @@ public class MyPageActivity extends AppCompatActivity {
         }
         return projectService;
     }
+
+    public void setLogoutService(LogoutService logoutService) {
+        this.logoutService = logoutService;
+    }
+
+
+    public LogoutService getLogoutService() {
+        if (logoutService == null) {
+            return BaseApplication.retrofit.create(LogoutService.class);
+        }
+        return logoutService;
+    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
