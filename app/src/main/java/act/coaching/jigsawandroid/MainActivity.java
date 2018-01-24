@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
                         Log.d("MainActivity", "loginService call response : " + t.getMessage());
-                        startActivity(new Intent(MainActivity.this, MyPageActivity.class));
                     }
                 });
             }
