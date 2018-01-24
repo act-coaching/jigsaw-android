@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import act.coaching.jigsawandroid.service.LogoutService;
 import java.util.ArrayList;
 
 import act.coaching.jigsawandroid.adapter.ProjectListAdapter;
@@ -24,6 +25,7 @@ import retrofit2.Response;
 
 public class MyPageActivity extends AppCompatActivity {
     ProjectService projectService;
+    LogoutService logoutService;
 
     void setprojectService(ProjectService projectService) {
         this.projectService = projectService;
@@ -35,6 +37,19 @@ public class MyPageActivity extends AppCompatActivity {
         }
         return projectService;
     }
+
+    public void setLogoutService(LogoutService logoutService) {
+        this.logoutService = logoutService;
+    }
+
+
+    public LogoutService getLogoutService() {
+        if (logoutService == null) {
+            return BaseApplication.retrofit.create(LogoutService.class);
+        }
+        return logoutService;
+    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
