@@ -4,36 +4,30 @@ import android.content.Intent;
 import android.widget.EditText;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.mockito.stubbing.Answer;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.robolectric.Shadows.shadowOf;
-
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
 import act.coaching.jigsawandroid.service.LoginService;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
+import act.coaching.jigsawandroid.util.JigsawPreference;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.robolectric.Shadows.shadowOf;
 
 /**
  * Created by actmember on 2018. 1. 23..
@@ -47,6 +41,7 @@ public class LoginActivityTest {
     private LoginService mockLoginService;
 
     Call<String> mockedCall;
+    MainActivity mainActivity;
 
     @Before
     public void setUp() throws Exception {
@@ -70,10 +65,8 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void clickLoginBtnAndSuccess() {
-        ShadowApplication application = shadowOf(RuntimeEnvironment.application);
-        MainActivity mainActivity = Robolectric.setupActivity(MainActivity.class);
-
+    public void requestLogin() {
+        mainActivity = Robolectric.setupActivity(MainActivity.class);
         mainActivity.setLoginService(mockLoginService);
 
         EditText empNo = (EditText) mainActivity.findViewById(R.id.editEmpNo);
@@ -81,16 +74,24 @@ public class LoginActivityTest {
         empNo.setText("12345");
         editTelNo.setText("67890");
 
-        // network
-//        server.enqueue(new MockResponse().setResponseCode(200)
-//                .setBody("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZU51bWJlciI6IjEyMzQ1IiwiaWF0IjoxNTE2Njg3MjkwLCJleHAiOjE1MTY4NjAwOTAsImlzcyI6InNkcy5hY3QuY29hY2giLCJzdWIiOiJKaWtzYXdBdXRoIn0.9_SLyFgZwgiGem0QVH6gKo-NnfUBPdVkfm5WbXbHMoQ"));
+        assertEquals(mainActivity.findViewById(R.id.btnLogin).performClick(), true);
 
-        mainActivity.findViewById(R.id.btnLogin).performClick();
-
-        Mockito.verify(mockLoginService).login(eq("12345"), eq("67890"));
-
-//        Intent expectedIntent = new Intent(mainActivity, MyPageActivity.class);
-//        assertEquals(expectedIntent.getComponent(), application.getNextStartedActivity().getComponent());
+        Mockito.verify(mockLoginService).login(eq(empNo.getText().toString()), eq(editTelNo.getText().toString()));
     }
 
+    @Test
+    public void saveTokenFromResponse() {
+        requestLogin();
+
+        assertEquals("SUCCESS_TOKEN", JigsawPreference.getInstance(mainActivity).getString(JigsawPreference.TOKEN));
+    }
+
+    @Test
+    public void checkRequestSuccess() {
+        ShadowApplication application = shadowOf(RuntimeEnvironment.application);
+        requestLogin();
+
+        Intent expectedIntent = new Intent(mainActivity, MyPageActivity.class);
+        assertEquals(expectedIntent.getComponent(), application.getNextStartedActivity().getComponent());
+    }
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,7 +34,7 @@ public class BaseApplication extends Application{
                                                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                                                 .build());
                             }
-                        }).build())
+                        }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)).build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

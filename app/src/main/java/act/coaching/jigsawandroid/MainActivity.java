@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import act.coaching.jigsawandroid.service.LoginService;
+import act.coaching.jigsawandroid.util.JigsawPreference;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         Log.d("MainActivity", "loginService call response : " + response.body());
+                        JigsawPreference.getInstance(MainActivity.this).putString(JigsawPreference.TOKEN, response.body());
                         startActivity(new Intent(MainActivity.this, MyPageActivity.class));
                     }
 
